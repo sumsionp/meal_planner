@@ -9,14 +9,13 @@ describe Dish do
     ]
 
     @dish = Dish.new("Funky Pie")
+    
+    @ingredients.each do |ingredient|
+      @dish.add_ingredient(ingredient)
+    end
   end
 
   it "has a name" do
     @dish.name.should == "Funky Pie"
   end
-
-  it "has a list of ingredients"
-
-  it "has a list of ordered instructions"
-
 end
