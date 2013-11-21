@@ -1,6 +1,6 @@
 Ingredient = Struct.new(:amount, :measure, :description)
 
-class Dish
+class Recipe
   attr_reader :name
   def initialize(name)
     @name = name
