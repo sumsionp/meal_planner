@@ -18,4 +18,18 @@ describe Meal do
   it "has a string representation" do
     @meal.to_s.should == "Main Dish: #{@main_dish}, Typical Time: #{@typical_time}"
   end
+
+  context "suggested sides have been added" do
+    before do
+      @main_dish = "Hashed Browns"
+      @typical_time = "Dinner"
+      @meal = Meal.new(@main_dish, @typical_time)
+
+      @side1 = Recipe.new("Bacon")
+      @meal.add_suggested_side(@side1)
+    end
+
+    it "has a suggested side"
+
+  end
 end
