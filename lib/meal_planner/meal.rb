@@ -19,6 +19,10 @@ class Meal
   end
 
   def to_s
-    "Main Dish: #{@main_dish}"
+    string = "Main Dish: #{@main_dish}"
+    each_side do |side|
+      string += ", Side: #{side}"
+    end
+    string
   end
 end

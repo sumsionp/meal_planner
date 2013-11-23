@@ -37,7 +37,10 @@ describe Meal do
       sides.should == expected_sides
     end
 
-    it "lists sides in string representation"
+    it "lists sides in string representation" do
+      @meal.to_s.should ==
+        "Main Dish: #{@main_dish}, Side: #{@side1}, Side: #{@side2}"
+    end
 
   end
 end
