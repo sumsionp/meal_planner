@@ -3,6 +3,19 @@ class Meal
 
   def initialize(main_dish)
     @main_dish = main_dish
+    @sides = []
+  end
+
+  def add_side(side)
+    @sides << side
+  end
+
+  def each_side
+    if block_given?
+      @sides.each do |side|
+        yield side
+      end
+    end
   end
 
   def to_s

@@ -25,7 +25,17 @@ describe Meal do
       @meal.add_side(@side2)
     end
 
-    it "returns each side"
+    it "returns each side" do
+
+      expected_sides = [@side1, @side2]
+      sides = []
+
+      @meal.each_side do |side|
+        sides << side
+      end
+
+      sides.should == expected_sides
+    end
 
     it "lists sides in string representation"
 
