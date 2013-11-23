@@ -11,7 +11,7 @@ describe Meal do
   end
 
   it "has a string representation" do
-    @meal.to_s.should == "Main Dish: #{@main_dish}, Sides: "
+    @meal.to_s.should == "Main Dish: #{@main_dish}"
   end
 
   context "suggested sides have been added" do
