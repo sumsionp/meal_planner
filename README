@@ -1,0 +1,9 @@
+A program to ease and automate the planning of meals.
+
+Each meal has a main dish and optionally side dishes as well. These are currently loaded from .csv file. That will be changed in a future release when they will be loaded from a database instead.
+
+A menu consists of any number of days that the user chooses. Each day can have breakfast, lunch, and dinner as plannable meals. When the program is run, the meals are loaded at random from the meal source and presented to the user. The user then has the option to switch out any that she doesn't want on a particular day. If two meals are given, the two meals are switched between each other. If only one meal is given, that meal is switched with another from the meal source that isn't already in the menu. Currently, the number of meals that can be planned is limited to half the number of meals in the source so that each meal could be switched for another.
+
+When the user quits the program, the current menu is stored in a text file so that it can be printed and used in shopping, preparing meals, etc.
+
+In a future release, each dish in a meal will be associated with a recipe so that a shopping list and recipe book can be created directly from the same source.
