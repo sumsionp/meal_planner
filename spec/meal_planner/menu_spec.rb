@@ -15,6 +15,8 @@ describe Menu do
     @menu.each_menu_day do |menu_day|
       expected_dates << menu_day.date
     end
+
+    expected_dates.should == test_dates
   end
 
   it "switches a meal with one that is not already in the list"

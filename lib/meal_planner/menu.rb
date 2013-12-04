@@ -9,7 +9,7 @@ class Menu
     @start_date = Time.new.to_date
     @menu_days = []
 
-    0.upto(@number_of_days) do |i|
+    0.upto(@number_of_days - 1) do |i|
       @menu_days << MenuDay.new(@start_date + i)
     end
   end
