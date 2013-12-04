@@ -19,4 +19,17 @@ class Menu
       @menu_days.each { |menu_day| yield menu_day }
     end
   end
+
+  def each_planned_meal
+    if block_given?
+      planned_meals = []
+
+      each_menu_day do |menu_day|
+        menu_day.each_meal do |meal|
+          planned_meals << meal
+        end
+      end
+    end
+  end
+
 end

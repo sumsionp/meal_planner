@@ -10,4 +10,12 @@ class MenuDay
     @lunch = lunch
     @dinner = dinner
   end
+
+  def each_meal
+    if block_given?
+      yield @breakfast
+      yield @lunch
+      yield @dinner
+    end
+  end
 end

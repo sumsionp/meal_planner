@@ -19,6 +19,16 @@ describe Menu do
     expected_dates.should == test_dates
   end
 
+  it "returns each planned meal" do
+    expected_meals = []
+
+    @menu.each_planned_meal do |planned_meal|
+      expected_meals << planned_meal
+    end
+
+    expected_meals.should == []
+  end
+
   it "switches a meal with one that is not already in the list"
   # switch(menu_day)
 
