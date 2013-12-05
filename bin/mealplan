@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+def validate(value, match)
+  if block_given?
+    until (value =~ match)
+      puts "Invalid input"
+      value = yield
+    end
+    value
+  end
+end
+
+loop do
+  puts "\nWelcome to Meal Planner"
+  puts "\nPlease enter the number of days to plan for"
+  number_of_days = validate(gets.chomp, /^\d+$/) { gets.chomp }
+  puts "\nNumber of days is: #{number_of_days}"
+  puts "\nPlease enter the date to start menu or Enter if today"
+  puts "m/d ex: 2/13 for Feb. 2"
+  start_date = gets.chomp.split('/')
+end
