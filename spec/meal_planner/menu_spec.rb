@@ -29,7 +29,4 @@ describe Menu do
     expected_meals.should == []
   end
 
-  it "switches a meal with one that is not already in the list"
-  # switch(menu_day)
-
 end
