@@ -12,8 +12,11 @@ loop do
   end
 
   puts "\nPlease enter the date to start menu or Enter if today"
-  puts "m/d ex: 2/13 for Feb. 2"
-  start_date = Validator.validate(/^([1-9]|1[1-2]\/([1-9]|[1-3]/) do
-    gets.chomp.split('/')
+  start_date = Validator.validate(/^(0{,1}[1-9]|1[0-2])\/(0{,1}[1-9]|[12][0-9]|3[01])\/\d{4}$/) do
+    puts "example: 2/13/2013 for Feb. 13, 2013"
+    gets.chomp
   end
+
+  puts "\nPlanning for #{number_of_days} days starting on #{start_date}."
+  break
 end
