@@ -2,11 +2,12 @@ require 'date'
 
 class Menu
 
-  attr_reader :days
+  attr_reader :days, :unplanned_meals
 
   def initialize(number_of_days)
     @number_of_days = number_of_days
     @start_date = Time.new.to_date
+    @unplanned_meals = []
     @menu_days = []
 
     0.upto(@number_of_days - 1) do |i|
@@ -30,6 +31,10 @@ class Menu
         end
       end
     end
+  end
+
+  def add_unplanned_meal(meal)
+    @unplanned_meals << meal
   end
 
 end

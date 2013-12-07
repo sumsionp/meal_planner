@@ -29,4 +29,14 @@ describe Menu do
     expected_meals.should == []
   end
 
+  it "has a list of unplanned meals" do
+    @menu.unplanned_meals.should == []
+  end
+
+  it "adds an unplanned meal" do
+    meal = Meal.new("Coconut Currie Soup")
+    @menu.add_unplanned_meal(meal)
+    @menu.unplanned_meals.should == [meal]
+  end
+
 end
