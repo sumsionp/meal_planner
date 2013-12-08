@@ -1,5 +1,5 @@
 class Array
-  def sample!(n)
+  def sample!(n=1)
     sample = self.sample(n)
     self.replace(self - sample)
     sample
