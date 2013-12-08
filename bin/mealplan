@@ -1,22 +1,44 @@
 #!/usr/bin/env ruby
 
+require 'date'
 require_relative '../lib/meal_planner/validator'
+require_relative '../lib/meal_planner/meal'
+require_relative '../lib/meal_planner/menu_day'
+require_relative '../lib/meal_planner/menu'
+
+meals = [
+  Meal.new("Chicky and Rice"),
+  Meal.new("Taco Salad"),
+  Meal.new("Stuffed Chicken and Fried Potatoes"),
+  Meal.new("Spaghetti"),
+  Meal.new("Hot Wraps"),
+  Meal.new("Taquitos, Rice, and Beans"),
+  Meal.new("Hashbrowns, Saurkraut, and Bacon"),
+  Meal.new("Fish, Coleslaw, and Rice")
+]
 
 loop do
   puts "\nWelcome to Meal Planner"
-  puts "\nPlease enter the number of days to plan for"
 
+  puts "\nPlease enter the number of days to plan for"
   number_of_days = Validator.validate(/^\d+$/) do
     puts "example: 7"
     gets.chomp
   end
 
-  puts "\nPlease enter the date to start menu or Enter if today"
-  start_date = Validator.validate(/^(0{,1}[1-9]|1[0-2])\/(0{,1}[1-9]|[12][0-9]|3[01])\/\d{4}$/) do
-    puts "example: 2/13/2013 for Feb. 13, 2013"
-    gets.chomp
+  #puts "\nPlease enter the date to start menu or Enter if today"
+  #start_date = Validator.validate(/^(0{,1}[1-9]|1[0-2])\/(0{,1}[1-9]|[12][0-9]|3[01])\/\d{4}$/) do
+    #puts "example: 2/13/2013 for Feb. 13, 2013"
+    #gets.chomp
+  #end
+
+  puts "\nPlanning for #{number_of_days} days." #starting on #{start_date}."
+
+  menu = Menu.new(Integer(number_of_days))
+  menu.plan(meals)
+  menu.each_menu_day do |menu_day|
+    puts menu_day
   end
 
-  puts "\nPlanning for #{number_of_days} days starting on #{start_date}."
   break
 end
