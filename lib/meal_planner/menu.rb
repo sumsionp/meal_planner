@@ -1,4 +1,5 @@
 require 'date'
+require_relative 'array'
 
 class Menu
 
@@ -41,7 +42,7 @@ class Menu
     @unplanned_meals = meals
     
     each_menu_day do |menu_day|
-      menu_day.lunch = @unplanned_meals.sample!
+      menu_day.lunch = Meal.new("Leftovers from yesterday")
       menu_day.dinner = @unplanned_meals.sample!
     end
   end
