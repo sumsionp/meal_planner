@@ -39,6 +39,11 @@ class Menu
 
   def plan(meals)
     @unplanned_meals = meals
+    
+    each_menu_day do |menu_day|
+      menu_day.lunch = @unplanned_meals.sample!
+      menu_day.dinner = @unplanned_meals.sample!
+    end
   end
 
 end
