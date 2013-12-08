@@ -37,4 +37,8 @@ class Menu
     @unplanned_meals << meal
   end
 
+  def plan(meals)
+    @unplanned_meals = meals
+  end
+
 end

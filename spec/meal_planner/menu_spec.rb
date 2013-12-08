@@ -5,7 +5,8 @@ require 'date'
 describe Menu do
   before do
     Timecop.freeze(Date.new(2013, 7, 24))
-    @menu = Menu.new(2)
+    @number_of_days = 2
+    @menu = Menu.new(@number_of_days)
   end
 
   it "returns each menu day" do
@@ -37,6 +38,28 @@ describe Menu do
     meal = Meal.new("Coconut Currie Soup")
     @menu.add_unplanned_meal(meal)
     @menu.unplanned_meals.should == [meal]
+  end
+
+  it "plans menu by adding given meals to menu days" do
+    meals = [
+      Meal.new("Chicken and Rice"),
+      Meal.new("Sausage and Saurkraut"),
+      Meal.new("Steak, potatoes, and gravy"),
+      Meal.new("Hot tortilla sandwiches"),
+      Meal.new("Chicken Soup"),
+      Meal.new("Leftover Roast Soup")
+    ]
+
+    @menu.plan(meals)
+
+    planned_meals = []
+    @menu.each_planned_meal do |meal|
+      meal.should_not be_nil
+      planned_meals << meal
+    end
+
+    planned_meals.length.should == meals.length - @number_of_days
+
   end
 
 end
