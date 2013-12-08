@@ -16,4 +16,8 @@ class MenuDay
       yield @dinner
     end
   end
+
+  def to_s
+    "\nPlan for #{@date}\nLunch is: #{@lunch}\nDinner is: #{@dinner}"
+  end
 end
