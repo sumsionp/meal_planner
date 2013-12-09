@@ -1,5 +1,6 @@
 require 'date'
 require_relative 'array'
+require_relative 'menu_day'
 
 class Menu
 
@@ -24,11 +25,12 @@ class Menu
 
   def each_planned_meal
     if block_given?
-      planned_meals = []
 
       each_menu_day do |menu_day|
         menu_day.each_meal do |meal|
-          planned_meals << meal
+          unless meal.nil?
+            yield meal
+          end
         end
       end
     end
@@ -46,5 +48,34 @@ class Menu
       menu_day.dinner = @unplanned_meals.sample!
     end
   end
+
+end
+
+if __FILE__ == $0
+  require 'timecop'
+  Timecop.freeze(Date.new(2013, 7, 24))
+  @number_of_days = 2
+  @menu = Menu.new(@number_of_days)
+
+  meals = [
+    Meal.new("Chicken and Rice"),
+    Meal.new("Sausage and Saurkraut"),
+    Meal.new("Steak, potatoes, and gravy"),
+    Meal.new("Hot tortilla sandwiches"),
+    Meal.new("Chicken Soup"),
+    Meal.new("Leftover Roast Soup")
+  ]
+
+  puts "Available meals are #{meals}"
+
+  @menu.plan(meals)
+
+  planned_meals = []
+  @menu.each_menu_day do |menu_day|
+    planned_meals << menu_day.lunch
+    planned_meals << menu_day.dinner
+  end
+
+  puts "Planned meals are #{planned_meals}"
 
 end

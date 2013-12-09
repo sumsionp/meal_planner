@@ -58,7 +58,7 @@ describe Menu do
       planned_meals << meal
     end
 
-    planned_meals.length.should == meals.length - @number_of_days
+    planned_meals.length.should == @number_of_days * 2
 
   end
 
