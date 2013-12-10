@@ -40,25 +40,58 @@ describe Menu do
     @menu.unplanned_meals.should == [meal]
   end
 
-  it "plans menu by adding given meals to menu days" do
-    meals = [
-      Meal.new("Chicken and Rice"),
-      Meal.new("Sausage and Saurkraut"),
-      Meal.new("Steak, potatoes, and gravy"),
-      Meal.new("Hot tortilla sandwiches"),
-      Meal.new("Chicken Soup"),
-      Meal.new("Leftover Roast Soup")
-    ]
+  context "meals have been planned" do
 
-    @menu.plan(meals)
+    before do
+      Timecop.freeze(Date.new(2013, 7, 24))
+      @number_of_days = 2
+      @menu = Menu.new(@number_of_days)
 
-    planned_meals = []
-    @menu.each_planned_meal do |meal|
-      meal.should_not be_nil
-      planned_meals << meal
+      @meals = [
+        Meal.new("Chicken and Rice"),
+        Meal.new("Sausage and Saurkraut"),
+        Meal.new("Steak, potatoes, and gravy"),
+        Meal.new("Hot tortilla sandwiches"),
+        Meal.new("Chicken Soup"),
+        Meal.new("Leftover Roast Soup")
+      ]
+
+      @menu.plan(@meals)
     end
 
-    planned_meals.length.should == @number_of_days * 2
+    it "has planned meals" do
+
+      planned_meals = []
+      @menu.each_planned_meal do |meal|
+        meal.should_not be_nil
+        planned_meals << meal
+      end
+
+      planned_meals.length.should == @number_of_days * 2
+
+    end
+
+    it "switches the places of two planned meals"
+
+    it "switches a meal with another not yet on the menu" do
+      planned_meals = []
+      @menu.each_planned_meal do |meal|
+        planned_meals << meal
+      end
+      
+      switch_meal = planned_meals[1]
+
+      @menu.switch(switch_meal)
+
+      planned_meals = []
+      @menu.each_planned_meal do |meal|
+        planned_meals << meal
+      end
+
+      planned_meals.size.should == 4
+      planned_meals.should_not include(switch_meal)
+
+    end
 
   end
 
