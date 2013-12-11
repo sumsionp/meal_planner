@@ -12,13 +12,14 @@ describe Array do
     @sample = @original.sample!(@sample_size)
     @sample.size.should == @sample_size
     @original.size.should == @original_size - @sample_size
+    @original.should_not include(@sample)
   end
 
   it "samples only one from the array" do
     sample = @original.sample!
     
-    sample.size.should == 1
-    @original.size.should == @original_size - 1
+    @original.should_not include(sample)
+    sample.should be_an_instance_of String
   end
 
 end
