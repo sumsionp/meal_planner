@@ -14,6 +14,10 @@ describe Meal do
     @meal.to_s.should == "Main Dish: #{@main_dish}"
   end
 
+  it "compares to others by main dish" do
+    @meal.should == Meal.new(@main_dish)
+  end
+
   context "suggested sides have been added" do
     before do
       @main_dish = "Hashed Browns"

@@ -25,4 +25,8 @@ class Meal
     end
     string
   end
+
+  def ==(other)
+    @main_dish == other.main_dish
+  end
 end
