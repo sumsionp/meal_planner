@@ -49,6 +49,14 @@ class Menu
     end
   end
 
+  def switch(switch_meal)
+    each_planned_meal do |meal|
+      if meal == switch_meal
+        meal = @unplanned_meals.sample!
+      end
+    end
+  end
+
 end
 
 if __FILE__ == $0
