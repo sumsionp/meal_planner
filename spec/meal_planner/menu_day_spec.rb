@@ -7,27 +7,45 @@ describe MenuDay do
     @lunch = Meal.new("Sandwiches")
     @dinner = Meal.new("Spaghetti")
 
+    @meals = { :lunch => @lunch, :dinner => @dinner }
+
     @lunch2 = Meal.new("Leftovers")
     @dinner2 = Meal.new("Chicken and Rice")
+    
+    @meals2 = { :lunch => @lunch2, :dinner => @dinner2 }
 
-    @menu_day = MenuDay.new(@date, @lunch, @dinner)
+    @menu_day = MenuDay.new(@date)
   end
 
   it "has a date" do
     @menu_day.date.should == @date
   end
 
-  it "has lunch, and dinner" do
-    @menu_day.lunch.should == @lunch
-    @menu_day.dinner.should == @dinner
+  it "has a hash of meals" do
+
+    @menu_day.add_meal(:lunch, @lunch)
+    @menu_day.add_meal(:dinner, @dinner)
+
+    expected_meals = {}
+
+    @menu_day.each_meal do |time, meal|
+      expected_meals[time] = meal
+    end
+
+    expected_meals.should == @meals
   end
 
-  it "allows lunch, and dinner to be changed" do
-    @menu_day.lunch = @lunch2
-    @menu_day.dinner = @dinner2
+  it "substitutes meals with new meals" do
+    @menu_day.switch_meal(:lunch, @lunch2)
+    @menu_day.switch_meal(:dinner, @dinner2)
 
+    expected_meals = {}
 
-    @menu_day.lunch.should == @lunch2
-    @menu_day.dinner.should == @dinner2
- end
+    @menu_day.each_meal do |time, meal|
+      expected_meals[time] = meal
+    end
+
+    expected_meals.should == @meals2
+  end
+
 end
