@@ -27,7 +27,7 @@ class Menu
     if block_given?
 
       each_menu_day do |menu_day|
-        menu_day.each_meal do |meal|
+        menu_day.each_meal do |time, meal|
           unless meal.nil?
             yield meal
           end
@@ -44,15 +44,17 @@ class Menu
     @unplanned_meals = meals
     
     each_menu_day do |menu_day|
-      menu_day.lunch = Meal.new("Leftovers from yesterday")
-      menu_day.dinner = @unplanned_meals.sample!
+      menu_day.add_meal(:lunch, Meal.new("Leftovers from yesterday"))
+      menu_day.add_meal(:dinner, @unplanned_meals.sample!)
     end
   end
 
   def switch(switch_meal)
-    each_planned_meal do |meal|
-      if meal == switch_meal
-        meal = @unplanned_meals.sample!
+    each_menu_day do |menu_day|
+      menu_day.each_meal do |time, meal|
+        if meal == switch_meal
+          menu_day.switch_meal(time, @unplanned_meals.sample!)
+        end
       end
     end
   end
