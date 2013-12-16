@@ -57,39 +57,51 @@ describe Menu do
       ]
 
       @menu.plan(@meals)
+
+      @planned_meals = []
+      @menu.each_planned_meal do |meal|
+        meal.should_not be_nil
+        @planned_meals << meal
+      end
+
     end
 
     it "has planned meals" do
-
-      planned_meals = []
-      @menu.each_planned_meal do |meal|
-        meal.should_not be_nil
-        planned_meals << meal
-      end
-
-      planned_meals.length.should == @number_of_days * 2
+      
+      @planned_meals.length.should == @number_of_days * 2
 
     end
 
-    it "switches the places of two planned meals"
+    it "switches the places of two planned meals" do
+      
+      switch_meal1 = @planned_meals[1]
+      switch_meal2 = @planned_meals[3]
+
+      @menu.switch(switch_meal1, switch_meal2)
+
+      @planned_meals = []
+      @menu.each_planned_meal do |meal|
+        @planned_meals << meal
+      end
+
+      @planned_meals[1].should == switch_meal2
+      @planned_meals[3].should == switch_meal1
+
+    end
 
     it "switches a meal with another not yet on the menu" do
-      planned_meals = []
-      @menu.each_planned_meal do |meal|
-        planned_meals << meal
-      end
-      
-      switch_meal = planned_meals[1]
+          
+      switch_meal = @planned_meals[1]
 
       @menu.switch(switch_meal)
 
-      planned_meals = []
+      @planned_meals = []
       @menu.each_planned_meal do |meal|
-        planned_meals << meal
+        @planned_meals << meal
       end
 
-      planned_meals.size.should == 4
-      planned_meals.should_not include(switch_meal)
+      @planned_meals.size.should == 4
+      @planned_meals.should_not include(switch_meal)
 
     end
 
