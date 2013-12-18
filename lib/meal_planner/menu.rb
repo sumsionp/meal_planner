@@ -50,12 +50,20 @@ class Menu
   end
 
   def switch(switch_meal1, switch_meal2=nil)
+    menu_days = []
     each_menu_day do |menu_day|
       menu_day.each_meal do |time, meal|
-        if meal == switch_meal1 && switch_meal2.nil?
-          menu_day.switch_meal(time, @unplanned_meals.sample!)
+        if meal == switch_meal1 || (! switch_meal2.nil? && meal == switch_meal2)
+          menu_days << [menu_day, time, meal]
         end
       end
+    end
+
+    if switch_meal2.nil?
+      menu_days[0][0].switch_meal(menu_days[0][1], @unplanned_meals.sample!)
+    elsif menu_days.size == 2
+      menu_days[0][0].switch_meal(menu_days[1][1], menu_days[1][2])
+      menu_days[1][0].switch_meal(menu_days[0][1], menu_days[0][2])
     end
   end
 
