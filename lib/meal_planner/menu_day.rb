@@ -25,6 +25,10 @@ class MenuDay
   end
 
   def to_s
-    "\nPlan for #{@date}\nLunch is: #{@lunch}\nDinner is: #{@dinner}"
+    menu_day_string = "\nPlan for #{@date}"
+    each_meal do |time, meal|
+      menu_day_string += "\n\t#{time.capitalize} is: #{meal}"
+    end
+    menu_day_string
   end
 end

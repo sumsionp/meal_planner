@@ -15,16 +15,20 @@ describe MenuDay do
     @meals2 = { :lunch => @lunch2, :dinner => @dinner2 }
 
     @menu_day = MenuDay.new(@date)
+
+    @menu_day.add_meal(:lunch, @lunch)
+    @menu_day.add_meal(:dinner, @dinner)
   end
 
   it "has a date" do
     @menu_day.date.should == @date
   end
 
-  it "has a hash of meals" do
+  it "has a string representation" do
+    @menu_day.to_s.should == "\nPlan for #{@date}\n\tLunch is: #{@lunch}\n\tDinner is: #{@dinner}"
+  end
 
-    @menu_day.add_meal(:lunch, @lunch)
-    @menu_day.add_meal(:dinner, @dinner)
+  it "has a hash of meals" do
 
     expected_meals = {}
 
