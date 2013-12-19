@@ -46,10 +46,14 @@ loop do
     puts menu_day
   end
 
-  puts "Please choose a meal or two to switch:\n"
+  puts "\nPlease choose a meal or two to switch:\n"
   planned_meals.each_with_index do |meal, i|
     puts "#{i} #{meal}"
   end
 
+  meals = Validator.validate(/^[0-#{planned_meals.size - 1}]$|^[0-#{planned_meals.size - 1}],[0-#{planned_meals.size - 1}]$/) do
+    puts "Example: 5\nExample: 2,4"
+    gets.chomp
+  end
   break
 end
