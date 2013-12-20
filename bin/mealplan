@@ -37,23 +37,42 @@ loop do
   menu = Menu.new(Integer(number_of_days))
   menu.plan(meals)
 
-  planned_meals = []
-  menu.each_planned_meal do |meal|
-    planned_meals << meal
-  end
-
   menu.each_menu_day do |menu_day|
     puts menu_day
   end
 
-  puts "\nPlease choose a meal or two to switch:\n"
-  planned_meals.each_with_index do |meal, i|
-    puts "#{i} #{meal}"
-  end
+  loop do
 
-  meals = Validator.validate(/^[0-#{planned_meals.size - 1}]$|^[0-#{planned_meals.size - 1}],[0-#{planned_meals.size - 1}]$/) do
-    puts "Example: 5\nExample: 2,4"
+    planned_meals = []
+    menu.each_planned_meal do |meal|
+      planned_meals << meal
+    end
+
+    puts "\nPlease choose a meal or two to switch:\n"
+    planned_meals.each_with_index do |meal, i|
+      puts "#{i} #{meal}"
+    end
+
+    meal_numbers_string = Validator.validate(/^[0-#{planned_meals.size - 1}]$|^[0-#{planned_meals.size - 1}],[0-#{planned_meals.size - 1}]$/) do
+      puts "Example: 5\nExample: 2,4"
     gets.chomp
+    end
+
+    meal_numbers = []
+
+    meal_numbers_string.split(",").each do |meal_number_string|
+      meal_numbers << Integer(meal_number_string)
+    end
+
+    if meal_numbers.size == 1
+      meal1, meal2 = planned_meals[meal_numbers[0]], nil
+    else
+      meal1, meal2 = planned_meals[meal_numbers[0]], planned_meals[meal_numbers[1]]
+    end
+
+    menu.switch(meal1, meal2)
+
+    menu.each_menu_day { |menu_day| puts menu_day }
   end
   break
 end
