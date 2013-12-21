@@ -60,15 +60,25 @@ loop do
       puts "#{i} #{meal}"
     end
 
-    meal_numbers_string = MealPlanner::Validator.validate(/^[0-#{planned_meals.size - 1}]$|^[0-#{planned_meals.size - 1}],[0-#{planned_meals.size - 1}]$/) do
-      puts "Example: 5\nExample: 2,4"
-    gets.chomp
-    end
+    validated = false
 
-    meal_numbers = []
+    until validated do
 
-    meal_numbers_string.split(",").each do |meal_number_string|
-      meal_numbers << Integer(meal_number_string)
+      meal_numbers_string = MealPlanner::Validator.validate(/^([0-9])([0-9]{1,})?(,([0-9])([0-9]{1,})?)?$/) do
+        puts "Example: 5\nExample: 2,4"
+        gets.chomp
+      end
+
+      meal_numbers = []
+
+      meal_numbers_string.split(",").each do |meal_number_string|
+        if (0..planned_meals.size).to_a.include? meal_number_string.to_i
+          meal_numbers << Integer(meal_number_string)
+          validated = true
+        else
+          validated = false
+        end
+      end
     end
 
     if meal_numbers.size == 1

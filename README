@@ -14,4 +14,8 @@ Switching Lunches with themselves or with other meals doesn't work well. This ma
 
 If too many meals are replaced, the meal store eventually gets emptied and so meals are replaced with blanks
 
-If more than 4 meals are planned at a time, the regular expression gathering meal numbers is no longer valid
+FIXED: If more than 4 meals are planned at a time, the regular expression gathering meal numbers is no longer valid
+  This was fixed by updating the regular expression so that it accepts any numbers as long as they are comma separated.
+
+FIXED: For now, this makes it possible for invalid numbers to be entered. This is not acceptable and must be changed as it could result in loss of the entire list of planned meals because of a simple user error.
+  This was fixed by checking the gathered values to see if they are in the range covered by the planned_meals array indexes
