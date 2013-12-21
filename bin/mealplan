@@ -6,16 +6,13 @@ require_relative '../lib/meal_planner/meal'
 require_relative '../lib/meal_planner/menu_day'
 require_relative '../lib/meal_planner/menu'
 
-meals = [
-  Meal.new("Chicky and Rice"),
-  Meal.new("Taco Salad"),
-  Meal.new("Stuffed Chicken and Fried Potatoes"),
-  Meal.new("Spaghetti"),
-  Meal.new("Hot Wraps"),
-  Meal.new("Taquitos, Rice, and Beans"),
-  Meal.new("Hashbrowns, Saurkraut, and Bacon"),
-  Meal.new("Fish, Coleslaw, and Rice")
-]
+meals = []
+
+default_meals_file = File.join(File.dirname(__FILE__), 'meals.csv')
+
+File.open(default_meals_file, "r") do |file|
+  file.readlines.each { |line| meals << Meal.new(line) }
+end
 
 loop do
   puts "\nWelcome to Meal Planner"
@@ -46,6 +43,16 @@ loop do
     planned_meals = []
     menu.each_planned_meal do |meal|
       planned_meals << meal
+    end
+
+    puts "\nPlease enter 'quit' to exit or hit Enter key to continue"
+    command = gets.chomp
+
+    if command == 'quit'
+      File.open("menu.txt", "w") do |file|
+        menu.each_menu_day { |menu_day| file << menu_day }
+      end
+      break
     end
 
     puts "\nPlease choose a meal or two to switch:\n"
