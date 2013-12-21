@@ -13,3 +13,5 @@ Known Issues:
 Switching Lunches with themselves or with other meals doesn't work well. This may need a redesign of how switch is called.
 
 If too many meals are replaced, the meal store eventually gets emptied and so meals are replaced with blanks
+
+If more than 4 meals are planned at a time, the regular expression gathering meal numbers is no longer valid
