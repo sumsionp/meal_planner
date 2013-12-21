@@ -1,55 +1,57 @@
 require 'meal_planner/menu_day'
 
-describe MenuDay do
+module MealPlanner
+  describe MenuDay do
 
-  before do
-    @date = Date.new(2013, 10, 21)
-    @lunch = Meal.new("Sandwiches")
-    @dinner = Meal.new("Spaghetti")
+    before do
+      @date = Date.new(2013, 10, 21)
+      @lunch = Meal.new("Sandwiches")
+      @dinner = Meal.new("Spaghetti")
 
-    @meals = { :lunch => @lunch, :dinner => @dinner }
+      @meals = { :lunch => @lunch, :dinner => @dinner }
 
-    @lunch2 = Meal.new("Leftovers")
-    @dinner2 = Meal.new("Chicken and Rice")
-    
-    @meals2 = { :lunch => @lunch2, :dinner => @dinner2 }
+      @lunch2 = Meal.new("Leftovers")
+      @dinner2 = Meal.new("Chicken and Rice")
 
-    @menu_day = MenuDay.new(@date)
+      @meals2 = { :lunch => @lunch2, :dinner => @dinner2 }
 
-    @menu_day.add_meal(:lunch, @lunch)
-    @menu_day.add_meal(:dinner, @dinner)
-  end
+      @menu_day = MenuDay.new(@date)
 
-  it "has a date" do
-    @menu_day.date.should == @date
-  end
-
-  it "has a string representation" do
-    @menu_day.to_s.should == "\nPlan for #{@date}\n\tLunch is: #{@lunch}\n\tDinner is: #{@dinner}"
-  end
-
-  it "has a hash of meals" do
-
-    expected_meals = {}
-
-    @menu_day.each_meal do |time, meal|
-      expected_meals[time] = meal
+      @menu_day.add_meal(:lunch, @lunch)
+      @menu_day.add_meal(:dinner, @dinner)
     end
 
-    expected_meals.should == @meals
-  end
-
-  it "substitutes meals with new meals" do
-    @menu_day.switch_meal(:lunch, @lunch2)
-    @menu_day.switch_meal(:dinner, @dinner2)
-
-    expected_meals = {}
-
-    @menu_day.each_meal do |time, meal|
-      expected_meals[time] = meal
+    it "has a date" do
+      @menu_day.date.should == @date
     end
 
-    expected_meals.should == @meals2
-  end
+    it "has a string representation" do
+      @menu_day.to_s.should == "\nPlan for #{@date}\n\tLunch is: #{@lunch}\n\tDinner is: #{@dinner}"
+    end
 
+    it "has a hash of meals" do
+
+      expected_meals = {}
+
+      @menu_day.each_meal do |time, meal|
+        expected_meals[time] = meal
+      end
+
+      expected_meals.should == @meals
+    end
+
+    it "substitutes meals with new meals" do
+      @menu_day.switch_meal(:lunch, @lunch2)
+      @menu_day.switch_meal(:dinner, @dinner2)
+
+      expected_meals = {}
+
+      @menu_day.each_meal do |time, meal|
+        expected_meals[time] = meal
+      end
+
+      expected_meals.should == @meals2
+    end
+
+  end
 end

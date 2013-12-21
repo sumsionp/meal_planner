@@ -1,14 +1,16 @@
-module RegexTest
+module MealPlanner
+  module RegexTest
 
-  def self.test(regex, array)
-    matched = true
-    array.each do |i|
-      unless i =~ regex
-        matched = false
-        break
+    def self.test(regex, array)
+      matched = true
+      array.each do |i|
+        unless i =~ regex
+          matched = false
+          break
+        end
       end
+      matched
     end
-    matched
-  end
 
+  end
 end

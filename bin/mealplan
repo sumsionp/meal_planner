@@ -11,27 +11,27 @@ meals = []
 default_meals_file = File.join(File.dirname(__FILE__), 'meals.csv')
 
 File.open(default_meals_file, "r") do |file|
-  file.readlines.each { |line| meals << Meal.new(line) }
+  file.readlines.each { |line| meals << MealPlanner::Meal.new(line) }
 end
 
 loop do
   puts "\nWelcome to Meal Planner"
 
   puts "\nPlease enter the number of days to plan for"
-  number_of_days = Validator.validate(/^\d+$/) do
+  number_of_days = MealPlanner::Validator.validate(/^\d+$/) do
     puts "example: 7"
     gets.chomp
   end
 
   #puts "\nPlease enter the date to start menu or Enter if today"
-  #start_date = Validator.validate(/^(0{,1}[1-9]|1[0-2])\/(0{,1}[1-9]|[12][0-9]|3[01])\/\d{4}$/) do
+  #start_date = MealPlanner::Validator.validate(/^(0{,1}[1-9]|1[0-2])\/(0{,1}[1-9]|[12][0-9]|3[01])\/\d{4}$/) do
     #puts "example: 2/13/2013 for Feb. 13, 2013"
     #gets.chomp
   #end
 
   puts "\nPlanning for #{number_of_days} days." #starting on #{start_date}."
 
-  menu = Menu.new(Integer(number_of_days))
+  menu = MealPlanner::Menu.new(Integer(number_of_days))
   menu.plan(meals)
 
   menu.each_menu_day do |menu_day|
@@ -60,7 +60,7 @@ loop do
       puts "#{i} #{meal}"
     end
 
-    meal_numbers_string = Validator.validate(/^[0-#{planned_meals.size - 1}]$|^[0-#{planned_meals.size - 1}],[0-#{planned_meals.size - 1}]$/) do
+    meal_numbers_string = MealPlanner::Validator.validate(/^[0-#{planned_meals.size - 1}]$|^[0-#{planned_meals.size - 1}],[0-#{planned_meals.size - 1}]$/) do
       puts "Example: 5\nExample: 2,4"
     gets.chomp
     end
