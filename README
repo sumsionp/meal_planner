@@ -7,15 +7,3 @@ A menu consists of any number of days that the user chooses. Each day can have a
 When the user quits the program, the current menu is stored in a menu.txt file so that it can be printed and used in shopping, preparing meals, etc.
 
 In a future release, each dish in a meal will be associated with a recipe so that a shopping list and recipe book can be created directly from the same source.
-
-Known Issues:
-
-Switching Lunches with themselves or with other meals doesn't work well. This may need a redesign of how switch is called.
-
-If too many meals are replaced, the meal store eventually gets emptied and so meals are replaced with blanks
-
-FIXED: If more than 4 meals are planned at a time, the regular expression gathering meal numbers is no longer valid
-  This was fixed by updating the regular expression so that it accepts any numbers as long as they are comma separated.
-
-FIXED: For now, this makes it possible for invalid numbers to be entered. This is not acceptable and must be changed as it could result in loss of the entire list of planned meals because of a simple user error.
-  This was fixed by checking the gathered values to see if they are in the range covered by the planned_meals array indexes
