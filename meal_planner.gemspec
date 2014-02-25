@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name         = "meal_planner"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.author       = "Peter Sumsion"
   s.email        = "sumsionp@gmail.com"
   s.homepage     = "https://github.com/sumsionp/meal_planner"
